@@ -45,6 +45,7 @@ jobs:
       - name: Build InsightFace
         working-directory: ./insightface
         run: |
+          cd python-package
           python setup.py bdist_wheel  # You may need to adjust this to match the build process for InsightFace
 
       # Optional: Run tests if necessary (based on how InsightFace is set up)
