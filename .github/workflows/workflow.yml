@@ -27,6 +27,8 @@ jobs:
         run: |
           git clone https://github.com/deepinsight/insightface.git
           cd insightface
+      - run: ls
+      - run: pwd
       # Install dependencies (Visual Studio Build Tools required for C++ compilation)
       - name: Install dependencies
         run: |
