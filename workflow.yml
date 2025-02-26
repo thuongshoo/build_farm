@@ -1,0 +1,45 @@
+name: Build InsightFace on Windows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Set up Python
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'  # You can modify this to match the required Python version
+
+      # Install dependencies (Visual Studio Build Tools required for C++ compilation)
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Install Visual Studio Build Tools (required for compiling)
+      - name: Install Visual Studio Build Tools
+        run: |
+          choco install visualstudio2022uildtools
+
+      # Build InsightFace (running setup.py or equivalent build command)
+      - name: Build InsightFace
+        run: |
+          python setup.py install  # You may need to adjust this to match the build process for InsightFace
+
+      # Optional: Run tests if necessary (based on how InsightFace is set up)
+      - name: Run tests
+        run: |
+          pytest  # Ensure you adjust this if InsightFace uses another test framework
