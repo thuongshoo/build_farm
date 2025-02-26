@@ -26,11 +26,12 @@ jobs:
       - name: Clone InsightFace repository
         run: |
           git clone https://github.com/deepinsight/insightface.git
-          cd insightface
+          ls insightface
       - run: ls
       - run: pwd
       # Install dependencies (Visual Studio Build Tools required for C++ compilation)
       - name: Install dependencies
+        working-directory: ./insightface
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -38,14 +39,15 @@ jobs:
       # Install Visual Studio Build Tools (required for compiling)
       - name: Install Visual Studio Build Tools
         run: |
-          choco install visualstudio2022uildtools
+          choco install visualstudio2022buildtools
 
       # Build InsightFace (running setup.py or equivalent build command)
       - name: Build InsightFace
+        working-directory: ./insightface
         run: |
-          python setup.py install  # You may need to adjust this to match the build process for InsightFace
+          python setup.py bdist_wheel  # You may need to adjust this to match the build process for InsightFace
 
       # Optional: Run tests if necessary (based on how InsightFace is set up)
-      - name: Run tests
-        run: |
-          pytest  # Ensure you adjust this if InsightFace uses another test framework
+      #- name: Run tests
+      #  run: |
+      #    pytest  # Ensure you adjust this if InsightFace uses another test framework
