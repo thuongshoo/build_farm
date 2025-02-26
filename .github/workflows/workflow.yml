@@ -22,7 +22,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.12'  # You can modify this to match the required Python version
-
+       # Clone InsightFace repository
+      - name: Clone InsightFace repository
+        run: |
+          git clone https://github.com/deepinsight/insightface.git
+          cd insightface
       # Install dependencies (Visual Studio Build Tools required for C++ compilation)
       - name: Install dependencies
         run: |
